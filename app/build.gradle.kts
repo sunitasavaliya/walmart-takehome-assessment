@@ -28,6 +28,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -44,6 +47,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.retrofit2)
     implementation(libs.converter.gson)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.lifecycle.runtime)
+    implementation(libs.androidx.cardview)
 
 
     testImplementation(libs.junit)

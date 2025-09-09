@@ -1,7 +1,7 @@
 package com.example.walmartcodingassessment.data.repository
 
 import com.example.walmartcodingassessment.data.model.Country
-import com.example.walmartcodingassessment.util.Result
+import com.example.walmartcodingassessment.data.Result
 
 
 interface CountryRepository {

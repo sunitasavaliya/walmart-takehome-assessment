@@ -2,7 +2,7 @@ package com.example.walmartcodingassessment.data.repository
 
 import com.example.walmartcodingassessment.data.api.CountryApiService
 import com.example.walmartcodingassessment.data.model.Country
-import com.example.walmartcodingassessment.util.Result
+import com.example.walmartcodingassessment.data.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
