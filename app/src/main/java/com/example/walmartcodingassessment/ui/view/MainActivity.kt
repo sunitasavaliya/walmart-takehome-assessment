@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         is UIState.Success -> {
-                            if((it.data as List<Country>).isEmpty()){
+                            if((it.data).isEmpty()){
                                 setUpViewVisibility(
                                     rvCountriesVisibility = View.GONE,
                                     tvErrorVisibility = View.GONE,
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                                     progressBarVisibility = View.GONE,
                                     noDataVisibility = View.GONE
                                 )
-                                countryAdapter.submitList(it.data as List<Country>)
+                                countryAdapter.submitList(it.data)
                             }
                         }
 
