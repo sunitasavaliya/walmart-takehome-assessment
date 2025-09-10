@@ -61,25 +61,40 @@ class MainActivity : AppCompatActivity() {
                             setUpViewVisibility(
                                 rvCountriesVisibility = View.GONE,
                                 tvErrorVisibility = View.GONE,
-                                progressBarVisibility = View.VISIBLE
+                                progressBarVisibility = View.VISIBLE,
+                                noDataVisibility = View.GONE
+
                             )
                         }
 
                         is UIState.Success -> {
-                            setUpViewVisibility(
-                                rvCountriesVisibility = View.VISIBLE,
-                                tvErrorVisibility = View.GONE,
-                                progressBarVisibility = View.GONE
-                            )
-                            countryAdapter.submitList(it.data as List<Country>)
+                            if((it.data as List<Country>).isEmpty()){
+                                setUpViewVisibility(
+                                    rvCountriesVisibility = View.GONE,
+                                    tvErrorVisibility = View.GONE,
+                                    progressBarVisibility = View.GONE,
+                                    noDataVisibility = View.VISIBLE
+                                )
+                            }
+                            else{
+                                setUpViewVisibility(
+                                    rvCountriesVisibility = View.VISIBLE,
+                                    tvErrorVisibility = View.GONE,
+                                    progressBarVisibility = View.GONE,
+                                    noDataVisibility = View.GONE
+                                )
+                                countryAdapter.submitList(it.data as List<Country>)
+                            }
                         }
 
                         is UIState.Error -> {
                             setUpViewVisibility(
                                 rvCountriesVisibility = View.GONE,
                                 tvErrorVisibility = View.VISIBLE,
-                                progressBarVisibility = View.GONE
+                                progressBarVisibility = View.GONE,
+                                noDataVisibility = View.GONE
                             )
+                            binding.tvError.text = it.message
                         }
                     }
                 }
@@ -90,12 +105,14 @@ class MainActivity : AppCompatActivity() {
     private fun setUpViewVisibility(
         rvCountriesVisibility: Int,
         tvErrorVisibility: Int,
-        progressBarVisibility: Int
+        progressBarVisibility: Int,
+        noDataVisibility: Int
     ) {
         binding.apply {
             rvCountries.visibility = rvCountriesVisibility
             tvError.visibility = tvErrorVisibility
             progressBar.visibility = progressBarVisibility
+            tvNoData.visibility = noDataVisibility
         }
     }
 }

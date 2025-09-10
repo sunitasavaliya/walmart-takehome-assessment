@@ -10,7 +10,7 @@ class GetCountriesUseCase(private val countryRepository: CountryRepository) {
     suspend operator fun invoke(): DomainResult<List<Country>> {
         return when (val result = countryRepository.getCountries()) {
             is DataResult.Success<CountryDTO> -> {
-                return DomainResult.Success(result.data.filter { !it.name.isNotEmpty() }
+                return DomainResult.Success(result.data.filter { it.name.isNotEmpty() }
                     .map { countries -> countries.toCountry() })
             }
 
