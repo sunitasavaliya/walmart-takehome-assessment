@@ -2,8 +2,8 @@ package com.example.walmartcodingassessment.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.walmartcodingassessment.data.Result
 import com.example.walmartcodingassessment.domain.GetCountriesUseCase
+import com.example.walmartcodingassessment.domain.DomainResult
 import com.example.walmartcodingassessment.ui.view.uistate.UIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,11 +21,11 @@ class CountryViewModel(private val getCountriesUseCase: GetCountriesUseCase) : V
     private fun fetchCountries() {
         viewModelScope.launch {
             when (val result = getCountriesUseCase()) {
-                is Result.Success -> {
+                is DomainResult.Success -> {
                     _uiStates.value = UIState.Success(result.data)
                 }
 
-                is Result.Error -> {
+                is DomainResult.Error -> {
                     _uiStates.value = UIState.Error("Error fetching countries")
                 }
             }

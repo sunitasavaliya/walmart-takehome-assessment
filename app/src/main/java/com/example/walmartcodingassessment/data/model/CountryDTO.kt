@@ -1,3 +1,3 @@
 package com.example.walmartcodingassessment.data.model
 
-class Country : ArrayList<CountryItem>()
+class CountryDTO : ArrayList<CountryItem>()

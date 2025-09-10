@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.walmartcodingassessment.data.model.CountryItem
 import com.example.walmartcodingassessment.databinding.ActivityMainBinding
+import com.example.walmartcodingassessment.domain.model.Country
 import com.example.walmartcodingassessment.ui.view.uistate.UIState
 import com.example.walmartcodingassessment.ui.view.adapter.CountryAdapter
 import com.example.walmartcodingassessment.ui.viewmodel.CountryViewModel
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                                 tvErrorVisibility = View.GONE,
                                 progressBarVisibility = View.GONE
                             )
-                            countryAdapter.submitList(it.data as List<CountryItem?>)
+                            countryAdapter.submitList(it.data as List<Country>)
                         }
 
                         is UIState.Error -> {

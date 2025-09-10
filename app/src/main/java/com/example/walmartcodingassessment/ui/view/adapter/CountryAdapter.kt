@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.walmartcodingassessment.data.model.CountryItem
 import com.example.walmartcodingassessment.databinding.LayoutCountryBinding
+import com.example.walmartcodingassessment.domain.model.Country
 
 class CountryAdapter :
-    ListAdapter<CountryItem, CountryAdapter.CountryViewHolder>(CountryDiffUtil()) {
+    ListAdapter<Country, CountryAdapter.CountryViewHolder>(CountryDiffUtil()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,7 +30,7 @@ class CountryAdapter :
 
     class CountryViewHolder(private val binding: LayoutCountryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(country: CountryItem) {
+        fun bind(country: Country) {
             binding.tvCountryName.text = country.region.takeIf { it.isNotEmpty() }
                 ?.let { "${country.name}, ${country.region}" } ?: run { country.name }
             binding.tvCountryCode.text = country.code
@@ -39,17 +39,17 @@ class CountryAdapter :
     }
 }
 
-class CountryDiffUtil : DiffUtil.ItemCallback<CountryItem>() {
+class CountryDiffUtil : DiffUtil.ItemCallback<Country>() {
     override fun areItemsTheSame(
-        oldItem: CountryItem,
-        newItem: CountryItem
+        oldItem: Country,
+        newItem: Country
     ): Boolean {
         return oldItem.name == newItem.name && oldItem.region == newItem.region && oldItem.code == newItem.code && oldItem.capital == newItem.capital
     }
 
     override fun areContentsTheSame(
-        oldItem: CountryItem,
-        newItem: CountryItem
+        oldItem: Country,
+        newItem: Country
     ): Boolean {
         return oldItem == newItem
     }

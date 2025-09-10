@@ -1,8 +1,8 @@
 package com.example.walmartcodingassessment.data.repository
 
-import com.example.walmartcodingassessment.data.Result
+import com.example.walmartcodingassessment.data.DataResult
 import com.example.walmartcodingassessment.data.api.CountryApiService
-import com.example.walmartcodingassessment.data.model.Country
+import com.example.walmartcodingassessment.data.model.CountryDTO
 import com.example.walmartcodingassessment.data.model.CountryItem
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
@@ -45,8 +45,8 @@ class CountryRepositoryImplTest {
     @Test
     fun `getCountries success returns Success result with data`() = runTest(testDispatcher) {
         // Arrange
-        val countryList = Country()
-        countryList.add(
+        val countryDTOList = CountryDTO()
+        countryDTOList.add(
             CountryItem(
                 capital = "Kabul",
                 code = "AF",
@@ -58,7 +58,7 @@ class CountryRepositoryImplTest {
                 language = null
             )
         )
-        countryList.add(
+        countryDTOList.add(
             CountryItem(
                 capital = "Mariehamn",
                 code = "AX",
@@ -71,23 +71,23 @@ class CountryRepositoryImplTest {
             )
         )
 
-        `when`(mockApiService.getCountries()).thenReturn(Response.success(countryList))
+        `when`(mockApiService.getCountries()).thenReturn(Response.success(countryDTOList))
 
         // Act
         val result = repository.getCountries()
 
         // Assert
-        val successResult = result as Result.Success
-        assertThat(successResult.data).isEqualTo(countryList)
-        assertThat(successResult.data).hasSize(2)
-        assertThat(successResult.data[0].name).isEqualTo("Afghanistan")
+        val successDataResult = result as DataResult.Success
+        assertThat(successDataResult.data).isEqualTo(countryDTOList)
+        assertThat(successDataResult.data).hasSize(2)
+        assertThat(successDataResult.data[0].name).isEqualTo("Afghanistan")
     }
 
     @Test
     fun `getCountries API success but body is null returns Error result`() =
         runTest(testDispatcher) {
             // Arrange
-            val nullBodyResponse: Response<Country> =
+            val nullBodyResponse: Response<CountryDTO> =
                 Response.success(null)
             `when`(mockApiService.getCountries()).thenReturn(nullBodyResponse)
 
@@ -95,8 +95,8 @@ class CountryRepositoryImplTest {
             val result = repository.getCountries()
 
             // Assert
-            assertThat(result).isInstanceOf(Result.Error::class.java)
-            val errorResult = result as Result.Error
-            assertThat(errorResult.exception.message).isEqualTo("Response body is null")
+            assertThat(result).isInstanceOf(DataResult.Error::class.java)
+            val errorDataResult = result as DataResult.Error
+            assertThat(errorDataResult.exception.message).isEqualTo("Response body is null")
         }
 }
