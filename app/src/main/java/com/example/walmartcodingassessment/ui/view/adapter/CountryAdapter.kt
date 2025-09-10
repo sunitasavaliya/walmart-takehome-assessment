@@ -31,7 +31,8 @@ class CountryAdapter :
     class CountryViewHolder(private val binding: LayoutCountryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(country: CountryItem) {
-            binding.tvCountryName.text = "${country.name}, ${country.region}"
+            binding.tvCountryName.text = country.region.takeIf { it.isNotEmpty() }
+                ?.let { "${country.name}, ${country.region}" } ?: run { country.name }
             binding.tvCountryCode.text = country.code
             binding.tvCapitol.text = country.capital
         }

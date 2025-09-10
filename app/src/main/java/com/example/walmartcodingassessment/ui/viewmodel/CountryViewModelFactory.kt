@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.walmartcodingassessment.data.api.RetrofitInstance
 import com.example.walmartcodingassessment.data.repository.CountryRepositoryImpl
+import com.example.walmartcodingassessment.domain.GetCountriesUseCase
 
 class CountryViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CountryViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CountryViewModel(CountryRepositoryImpl(RetrofitInstance.countryApiService)) as T
+            return CountryViewModel(GetCountriesUseCase(CountryRepositoryImpl(RetrofitInstance.countryApiService))) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
